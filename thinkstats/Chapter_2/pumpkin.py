@@ -1,3 +1,5 @@
+# Chapter 2, exercise 1.
+
 import os
 import sys
 import math
