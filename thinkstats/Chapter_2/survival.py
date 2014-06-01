@@ -1,4 +1,9 @@
 # Chapter 2 exercise 4
+import os
+import sys
+
+sys.path.append(os.path.pardir)
+
 import Pmf
 
 
@@ -14,8 +19,9 @@ def remaining_lifetime(pmf, age):
     """
     remaining = Pmf.Pmf()
 
-    for value, probabilty in pmf.Items():
-        remaining.Incr(value - age, probability) if value > age
+    for value, probability in pmf.Items():
+        if value > age:
+            remaining.Incr(value - age, probability)
 
     # Normalize values to make probabilities add up to 1 again.
     remaining.Normalize()
@@ -26,14 +32,17 @@ def remaining_lifetime(pmf, age):
 def main():
     """
     With a list of lifetime values, computes the PMF for them. Then calls the
-    above `remaining_lifetime` function to calculate the remaining lifetimes.
+    above `remaining_lifetime` function to calculate theability remaining
+    lifetimes.
     """
     lifetimes = [1, 3, 5, 6, 4, 3, 5, 6, 7, 5, 4, 3, 3, 4, 2, 7, 2, 9, 8, 1, 1]
 
     lifetimes_pmf = Pmf.MakePmfFromList(lifetimes)
-    remaining = remaining_lifetime(lifetimes_pmf, 3)
+    remaining = remaining_lifetime(lifetimes_pmf, 3)  # 3 years lifetime.
 
-    print remaining
+    # Print results.
+    for value, probability in remaining.Items():
+        print('Value: {0},\t Probability: {1}'.format(value, probability))
 
 
 if __name__ == '__main__':
